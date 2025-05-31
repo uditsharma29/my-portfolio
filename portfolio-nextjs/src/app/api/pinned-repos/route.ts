@@ -1,6 +1,48 @@
 import { NextResponse } from 'next/server';
 import type { GitHubRepo } from '@/types'; // Assuming your types file is correctly aliased
 
+// Define types for the GraphQL response structure
+interface GraphQLTopicNode {
+  topic: {
+    name: string;
+  };
+}
+
+interface GraphQLRepositoryTopicNodes {
+  nodes: GraphQLTopicNode[];
+}
+
+interface GraphQLPrimaryLanguage {
+  name: string;
+}
+
+interface GraphQLPinnedRepositoryNode {
+  id: string;
+  name: string;
+  description: string | null;
+  url: string;
+  stargazerCount: number;
+  primaryLanguage?: GraphQLPrimaryLanguage | null;
+  repositoryTopics?: GraphQLRepositoryTopicNodes | null;
+}
+
+interface GraphQLPinnedItems {
+  nodes: (GraphQLPinnedRepositoryNode | null)[];
+}
+
+interface GraphQLUser {
+  pinnedItems: GraphQLPinnedItems;
+}
+
+interface GraphQLResponseData {
+  user?: GraphQLUser;
+}
+
+interface GraphQLResponse {
+  data?: GraphQLResponseData;
+  errors?: any[]; // Keep errors as any for now, or define a more specific error type if needed
+}
+
 const GITHUB_USERNAME = 'uditsharma29';
 
 async function fetchPinnedRepos(): Promise<GitHubRepo[]> {
@@ -62,7 +104,7 @@ async function fetchPinnedRepos(): Promise<GitHubRepo[]> {
       return [];
     }
 
-    const jsonResponse = await res.json();
+    const jsonResponse: GraphQLResponse = await res.json();
     
     if (jsonResponse.errors) {
       console.error('API Route: GitHub GraphQL API errors:', jsonResponse.errors);
@@ -72,15 +114,15 @@ async function fetchPinnedRepos(): Promise<GitHubRepo[]> {
     const pinnedRepoNodes = jsonResponse.data?.user?.pinnedItems?.nodes || [];
     
     return pinnedRepoNodes
-      .filter((node: any) => node !== null)
-      .map((node: any): GitHubRepo => ({
+      .filter((node): node is GraphQLPinnedRepositoryNode => node !== null) // Type guard
+      .map((node: GraphQLPinnedRepositoryNode): GitHubRepo => ({
         id: node.id,
         name: node.name,
         description: node.description,
         html_url: node.url,
         stargazers_count: node.stargazerCount,
         language: node.primaryLanguage?.name || null,
-        topics: node.repositoryTopics?.nodes?.map((topicNode: any) => topicNode.topic.name) || [],
+        topics: node.repositoryTopics?.nodes?.map((topicNode: GraphQLTopicNode) => topicNode.topic.name) || [],
       }));
 
   } catch (error) {
@@ -89,7 +131,7 @@ async function fetchPinnedRepos(): Promise<GitHubRepo[]> {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   // You could add caching headers here if desired
   // e.g., response.headers.set('Cache-Control', 's-maxage=3600, stale-while-revalidate');
   const repos = await fetchPinnedRepos();

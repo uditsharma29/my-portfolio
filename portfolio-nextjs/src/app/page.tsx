@@ -67,7 +67,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl sm:text-5xl font-bold">Udit Sharma's Portfolio</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold">Udit Sharma&apos;s Portfolio</h1>
         <p className="text-lg sm:text-xl text-gray-400 mt-2">Showcasing my GitHub Projects</p>
       </motion.header>
 
@@ -104,7 +104,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p>
-              Hello! I'm Udit Sharma, a Machine Learning Engineer with a Master's in Computer Engineering. I'm fundamentally driven by a passion for engineering and the creative process of building new things, especially at the intersection of data and artificial intelligence. My core interest lies in exploring cutting-edge AI/ML concepts—from deep learning and transformers to the potential of generative AI and agentic systems—and translating these powerful technologies into practical, impactful solutions that can solve real-world challenges and enhance how we interact with the digital world.
+              Hello! I&apos;m Udit Sharma, a Machine Learning Engineer with a Master&apos;s in Computer Engineering. I&apos;m fundamentally driven by a passion for engineering and the creative process of building new things, especially at the intersection of data and artificial intelligence. My core interest lies in exploring cutting-edge AI/ML concepts—from deep learning and transformers to the potential of generative AI and agentic systems—and translating these powerful technologies into practical, impactful solutions that can solve real-world challenges and enhance how we interact with the digital world.
             </p>
           </motion.div>
         </div>

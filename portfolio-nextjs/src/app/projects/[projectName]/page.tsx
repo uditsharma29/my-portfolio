@@ -4,6 +4,13 @@ import { notFound } from 'next/navigation';
 
 const GITHUB_USERNAME = 'uditsharma29'; // Your GitHub username
 
+// Define a type for the topic node in the GraphQL response for this specific function
+interface GraphQLTopicNode {
+  topic: {
+    name: string;
+  };
+}
+
 async function getSingleRepoDetails(repoName: string): Promise<GitHubRepo | null> {
   const githubToken = process.env.GITHUB_TOKEN;
 
@@ -74,7 +81,7 @@ async function getSingleRepoDetails(repoName: string): Promise<GitHubRepo | null
       html_url: repoData.url,
       stargazers_count: repoData.stargazerCount,
       language: repoData.primaryLanguage?.name || null,
-      topics: repoData.repositoryTopics?.nodes?.map((topicNode: any) => topicNode.topic.name) || [],
+      topics: repoData.repositoryTopics?.nodes?.map((topicNode: GraphQLTopicNode) => topicNode.topic.name) || [],
     };
 
   } catch (error) {
