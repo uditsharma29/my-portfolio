@@ -200,7 +200,7 @@ export default function Skills() {
                 className="overflow-hidden"
               >
                 <div className="flex flex-wrap gap-2">
-                  {area.technologies.map((tech, techIndex) => (
+                  {area.technologies.map((tech) => (
                     <motion.span
                       key={tech.name}
                       variants={techVariants}
@@ -243,7 +243,7 @@ export default function Skills() {
         
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm italic">
-            "Always learning and exploring new technologies to solve complex problems"
+            &ldquo;Always learning and exploring new technologies to solve complex problems&rdquo;
           </p>
         </div>
       </motion.div>
