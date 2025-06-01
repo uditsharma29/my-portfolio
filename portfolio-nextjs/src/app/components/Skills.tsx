@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 interface TechStack {
   name: string;
@@ -95,8 +94,6 @@ const expertiseAreas: ExpertiseArea[] = [
 const allTechnologies = expertiseAreas.flatMap(area => area.technologies);
 
 export default function Skills() {
-  const [activeArea, setActiveArea] = useState<number | null>(null);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -145,60 +142,40 @@ export default function Skills() {
 
       {/* Expertise Areas */}
       <motion.div 
-        className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"
         variants={containerVariants}
       >
-        {expertiseAreas.map((area, index) => (
+        {expertiseAreas.map((area) => (
           <motion.div
             key={area.title}
             variants={areaVariants}
-            className={`group relative bg-gradient-to-br from-gray-800/60 to-gray-900/40 backdrop-blur-xl border border-gray-700/50 p-8 rounded-3xl shadow-xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-blue-400/50 ${
-              activeArea === index ? 'ring-2 ring-blue-400/30' : ''
-            }`}
-            onClick={() => setActiveArea(activeArea === index ? null : index)}
+            className="group relative bg-gradient-to-br from-gray-800/60 to-gray-900/40 backdrop-blur-xl border border-gray-700/50 p-6 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:border-blue-400/50"
             whileHover={{ 
-              y: -5,
+              y: -3,
               transition: { duration: 0.2 }
             }}
           >
             {/* Background gradient */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
+            <div className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`} />
             
             <div className="relative z-10">
               {/* Header */}
-              <div className="flex items-start mb-6">
-                <span className="text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="flex items-start mb-4">
+                <span className="text-3xl mr-3 group-hover:scale-110 transition-transform duration-300">
                   {area.icon}
                 </span>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">
                     {area.title}
                   </h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
                     {area.description}
                   </p>
                 </div>
-                <motion.div 
-                  className="text-blue-400"
-                  animate={{ rotate: activeArea === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </motion.div>
               </div>
 
-              {/* Technologies */}
-              <motion.div 
-                initial={false}
-                animate={{ 
-                  height: activeArea === index ? "auto" : "60px",
-                  opacity: activeArea === index ? 1 : 0.7
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
+              {/* Technologies - Always visible, compact */}
+              <div className="mt-4">
                 <div className="flex flex-wrap gap-2">
                   {area.technologies.map((tech) => (
                     <motion.span
@@ -211,7 +188,7 @@ export default function Skills() {
                     </motion.span>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -220,17 +197,17 @@ export default function Skills() {
       {/* Technology Cloud */}
       <motion.div 
         variants={areaVariants}
-        className="bg-gradient-to-r from-gray-800/40 to-gray-900/40 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8"
+        className="bg-gradient-to-r from-gray-800/40 to-gray-900/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6"
       >
-        <h3 className="text-2xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+        <h3 className="text-xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
           Technology Stack
         </h3>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-2">
           {allTechnologies.map((tech, index) => (
             <motion.span
               key={`${tech.name}-${index}`}
               variants={techVariants}
-              className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-gray-700/40 to-gray-800/40 border border-gray-600/30 rounded-xl text-gray-300 backdrop-blur-sm hover:from-blue-500/20 hover:to-purple-500/20 hover:border-blue-400/40 hover:text-white transition-all duration-300"
+              className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-gray-700/40 to-gray-800/40 border border-gray-600/30 rounded-xl text-gray-300 backdrop-blur-sm hover:from-blue-500/20 hover:to-purple-500/20 hover:border-blue-400/40 hover:text-white transition-all duration-300"
               whileHover={{ 
                 scale: 1.05,
                 y: -2
@@ -241,7 +218,7 @@ export default function Skills() {
           ))}
         </div>
         
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <p className="text-gray-400 text-sm italic">
             &ldquo;Always learning and exploring new technologies to solve complex problems&rdquo;
           </p>
