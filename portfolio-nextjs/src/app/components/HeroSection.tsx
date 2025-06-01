@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function HeroSection() {
   const [displayedText, setDisplayedText] = useState('');
@@ -196,24 +197,44 @@ export default function HeroSection() {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.a>
 
-          <motion.a
-            href="https://www.linkedin.com/in/uditsharma29/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group px-8 py-4 border-2 border-gray-600 hover:border-blue-400 rounded-full text-gray-300 hover:text-white font-semibold text-lg transition-all duration-300 backdrop-blur-sm"
-            whileHover={{ 
-              scale: 1.05,
-              borderColor: "#60a5fa"
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="flex items-center gap-2">
-              Connect with Me
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </span>
-          </motion.a>
+          <motion.div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/contact">
+              <motion.div
+                className="group px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 rounded-full text-white font-semibold text-lg shadow-lg hover:shadow-green-500/25 transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 30px rgba(34, 197, 94, 0.4)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="flex items-center gap-2">
+                  Get In Touch
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </span>
+              </motion.div>
+            </Link>
+
+            <motion.a
+              href="https://www.linkedin.com/in/uditsharma29/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-8 py-4 border-2 border-gray-600 hover:border-blue-400 rounded-full text-gray-300 hover:text-white font-semibold text-lg transition-all duration-300 backdrop-blur-sm"
+              whileHover={{ 
+                scale: 1.05,
+                borderColor: "#60a5fa"
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="flex items-center gap-2">
+                Connect with Me
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </span>
+            </motion.a>
+          </motion.div>
         </motion.div>
 
         {/* Scroll Indicator */}

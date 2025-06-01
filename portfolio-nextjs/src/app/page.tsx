@@ -4,9 +4,12 @@ import { GitHubRepo } from '@/types';
 import ProjectCard from './components/ProjectCard';
 import Skills from './components/Skills'; // Import the Skills component
 import HeroSection from './components/HeroSection'; // Import the new HeroSection
+import Timeline from './components/Timeline'; // Import the Timeline component
 import Image from 'next/image';
 import { motion } from 'framer-motion'; // Import motion
 import { useEffect, useState } from 'react'; // For client-side data fetching if needed or handling state
+import Link from 'next/link';
+import { getSortedTimelineData } from '@/data/timelineData'; // Import timeline data
 
 // getGithubRepos will now be called client-side or passed as props if static/server-rendered
 // For simplicity with framer-motion and existing structure, we'll keep data fetching server-side 
@@ -114,15 +117,23 @@ export default function Home() {
           <a href="https://www.linkedin.com/in/uditsharma29/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
             LinkedIn Profile
           </a>
-          <a href="https://docs.google.com/document/d/1OJ4nPqH8Qi0U-PuAMXwcjs7KPp-F3SnE_0KxoUH1YQ8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+          <Link href="/resume" className="text-blue-400 hover:underline font-medium">
             View My Resume
-          </a>
+          </Link>
+          <Link href="/contact" className="text-blue-400 hover:underline font-medium">
+            Get In Touch
+          </Link>
         </motion.div>
       </motion.section>
 
       {/* Skills Section */}
       <div className="flex justify-center">
         <Skills />
+      </div>
+
+      {/* Timeline Section */}
+      <div className="flex justify-center">
+        <Timeline items={getSortedTimelineData()} />
       </div>
 
       {/* Projects Section */}
