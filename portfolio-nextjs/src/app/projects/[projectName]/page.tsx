@@ -1,6 +1,7 @@
 import { GitHubRepo } from '@/types'; // Assuming types.ts is in src
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next'; // Import Metadata type
 
 const GITHUB_USERNAME = 'uditsharma29'; // Your GitHub username
 
@@ -90,21 +91,15 @@ async function getSingleRepoDetails(repoName: string): Promise<GitHubRepo | null
   }
 }
 
-interface ProjectPageParams {
-  projectName: string;
-}
-
-interface ProjectPageProps {
-  params: ProjectPageParams;
-}
-
 // Function to generate metadata dynamically
-export async function generateMetadata({ params }: ProjectPageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { projectName: string };
+}): Promise<Metadata> {
   const repoName = decodeURIComponent(params.projectName);
-  // For a better title, we might fetch the repo data here too, or pass parts of it.
-  // For now, just using the name.
-  const repo = await getSingleRepoDetails(repoName); // Fetch details for metadata
-  
+  const repo = await getSingleRepoDetails(repoName);
+
   if (!repo) {
     return {
       title: "Project Not Found | Udit Sharma",
@@ -118,7 +113,11 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: { projectName: string };
+}) {
   const repoName = decodeURIComponent(params.projectName);
   const repo = await getSingleRepoDetails(repoName);
 
