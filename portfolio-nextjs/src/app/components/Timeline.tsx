@@ -120,7 +120,7 @@ export default function Timeline({ items }: TimelineProps) {
 
         {/* Timeline Items */}
         <div className="space-y-8">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <motion.div
               key={item.id}
               variants={itemVariants}
