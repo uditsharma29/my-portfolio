@@ -95,9 +95,10 @@ async function getSingleRepoDetails(repoName: string): Promise<GitHubRepo | null
 export async function generateMetadata({
   params,
 }: {
-  params: { projectName: string };
+  params: Promise<{ projectName: string }>; // params is now a Promise
 }): Promise<Metadata> {
-  const repoName = decodeURIComponent(params.projectName);
+  const { projectName } = await params; // Await the params
+  const repoName = decodeURIComponent(projectName);
   const repo = await getSingleRepoDetails(repoName);
 
   if (!repo) {
@@ -116,9 +117,10 @@ export async function generateMetadata({
 export default async function ProjectPage({
   params,
 }: {
-  params: { projectName: string };
+  params: Promise<{ projectName: string }>; // params is now a Promise
 }) {
-  const repoName = decodeURIComponent(params.projectName);
+  const { projectName } = await params; // Await the params
+  const repoName = decodeURIComponent(projectName);
   const repo = await getSingleRepoDetails(repoName);
 
   if (!repo) {
