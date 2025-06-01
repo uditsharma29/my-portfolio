@@ -2,6 +2,8 @@
 
 import { GitHubRepo } from '@/types';
 import ProjectCard from './components/ProjectCard';
+import Skills from './components/Skills'; // Import the Skills component
+import HeroSection from './components/HeroSection'; // Import the new HeroSection
 import Image from 'next/image';
 import { motion } from 'framer-motion'; // Import motion
 import { useEffect, useState } from 'react'; // For client-side data fetching if needed or handling state
@@ -60,23 +62,17 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-4 sm:p-8">
-      <motion.header 
-        className="w-full max-w-4xl py-8 text-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-4xl sm:text-5xl font-bold">Udit Sharma&apos;s Portfolio</h1>
-        <p className="text-lg sm:text-xl text-gray-400 mt-2">Showcasing my GitHub Projects</p>
-      </motion.header>
-
+    <div className="min-h-screen bg-gray-900 text-white">
+      {/* Enhanced Hero Section */}
+      <HeroSection />
+      
+      {/* About Me Section */}
       <motion.section 
-        className="w-full max-w-4xl py-8 px-4"
+        className="w-full max-w-4xl mx-auto py-16 px-4"
         variants={sectionVariants}
         initial="hidden"
-        whileInView="visible" // Animate when section comes into view
-        viewport={{ once: true, amount: 0.3 }} // Trigger animation once, when 30% is visible
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
       >
         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center text-blue-400">About Me</h2>
         <div className="md:flex md:gap-8 items-start">
@@ -124,8 +120,14 @@ export default function Home() {
         </motion.div>
       </motion.section>
 
+      {/* Skills Section */}
+      <div className="flex justify-center">
+        <Skills />
+      </div>
+
+      {/* Projects Section */}
       <motion.main 
-        className="w-full max-w-4xl flex-grow py-8" 
+        className="w-full max-w-4xl mx-auto py-16 px-4" 
         id="projects-container"
         variants={sectionVariants}
         initial="hidden"
@@ -152,11 +154,12 @@ export default function Home() {
         )}
       </motion.main>
 
+      {/* Footer */}
       <motion.footer 
-        className="w-full max-w-4xl py-8 text-center text-gray-500"
+        className="w-full max-w-4xl mx-auto py-8 text-center text-gray-500"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }} // Delay footer animation slightly
+        transition={{ duration: 0.5, delay: 0.5 }}
       >
         <p>&copy; {new Date().getFullYear()} Udit Sharma. Powered by Next.js & GitHub API.</p>
       </motion.footer>
