@@ -38,9 +38,17 @@ interface GraphQLResponseData {
   user?: GraphQLUser;
 }
 
+// Define a more specific type for GraphQL errors
+interface GraphQLError {
+  message: string;
+  locations?: { line: number; column: number }[];
+  path?: string[];
+  extensions?: Record<string, unknown>; // Use Record<string, unknown> for flexible extensions
+}
+
 interface GraphQLResponse {
   data?: GraphQLResponseData;
-  errors?: any[]; // Keep errors as any for now, or define a more specific error type if needed
+  errors?: GraphQLError[]; // Use the defined GraphQLError type
 }
 
 const GITHUB_USERNAME = 'uditsharma29';
